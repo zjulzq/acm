@@ -4,28 +4,24 @@ package com.github.zjulzq.acm;
 import java.util.Scanner;
 
 public class Main {
-
+    private static final String FORMAT = "Property %d: This property will begin eroding in year %d.";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        long total = 0;
-        for (int i = 0; i < 12; i++) {
-            String closing = scanner.next();
-            closing = closing.replace(".", "");
-            long tmp = Long.valueOf(closing);
-            total += tmp;
+        int n = scanner.nextInt();
+        for (int i = 0; i < n; i++) {
+            double x = scanner.nextDouble();
+            double y = scanner.nextDouble();
+            int z = calcYear(x, y);
+            System.out.println(String.format(FORMAT, i + 1, z));
         }
-        long average = (long) (total / 12.0 + 0.5);
-        String target = String.valueOf(average);
-        if (target.length() == 1) {
-            target = "0.0" + target;
-        } else if (target.length() == 2) {
-            target = "0." + target;
-        } else {
-            target = target.substring(0, target.length() - 2) + "." + target.substring(target.length() - 2);
-        }
-        System.out.println("$" + target);
+        System.out.println("END OF OUTPUT.");
     }
 
+    private static int calcYear(double x, double y) {
+        double s = 0.5 * Math.PI * (x * x + y * y);
+        int z = (int) (s / 50);
+        return z + 1;
+    }
 
 }
