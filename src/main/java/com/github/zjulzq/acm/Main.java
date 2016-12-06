@@ -6,7 +6,6 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        long start = System.currentTimeMillis();
         Scanner scanner = new Scanner(System.in);
         int count = 0;
 
@@ -23,7 +22,6 @@ public class Main {
             count++;
             System.out.println(String.format("Case %d: the next triple peak occurs in %d days.", count, target - d));
         }
-        System.out.println(System.currentTimeMillis() - start);
 
     }
 
@@ -33,76 +31,57 @@ public class Main {
         int i = input[2];
         int d = input[3];
 
-        Set<Integer> setp = new HashSet<Integer>();
-        Set<Integer> sete = new HashSet<Integer>();
-        List<Integer> listi = new ArrayList<Integer>();
+        if (p == e && e == i) {
+            return p + 21252;
+        }
 
         int max = d + 21252;
+        int minus = 21252;
+
+        int p0 = p % 23;
+        int e0 = e % 28;
+        int i0 = i % 33;
+
+
+        int p1 = 0;
+        int e1 = 0;
+        int i1 = 0;
 
         for (int j = 1; ; j++) {
-            int tmp = p - j * 23;
-            if (tmp < 0) {
+            int tmp = 23 * 28 * j;
+            if (tmp % 33 == 1) {
+                i1 = tmp;
                 break;
-            }
-            if (tmp > d) {
-                setp.add(tmp);
-            }
-        }
-
-        for (int j = 0; ; j++) {
-            int tmp = p + j * 23;
-            if (tmp > max) {
-                break;
-            }
-            if (tmp > d) {
-                setp.add(tmp);
             }
         }
 
         for (int j = 1; ; j++) {
-            int tmp = e - j * 28;
-            if (tmp < 0) {
+            int tmp = 23 * 33 * j;
+            if (tmp % 28 == 1) {
+                e1 = tmp;
                 break;
-            }
-            if (tmp > d) {
-                sete.add(tmp);
-            }
-        }
-        for (int j = 0; ; j++) {
-            int tmp = e + j * 28;
-            if (tmp > max) {
-                break;
-            }
-            if (tmp > d) {
-                sete.add(tmp);
             }
         }
 
         for (int j = 1; ; j++) {
-            int tmp = i - j * 33;
-            if (tmp < 0) {
+            int tmp = 28 * 33 * j;
+            if (tmp % 23 == 1) {
+                p1 = tmp;
                 break;
-            }
-            if (tmp > d) {
-                listi.add(tmp);
-            }
-        }
-        for (int j = 0; ; j++) {
-            int tmp = i + j * 33;
-            if (tmp > max) {
-                break;
-            }
-            if (tmp > d) {
-                listi.add(tmp);
             }
         }
 
-        for (Integer tmp : listi) {
-            if (sete.contains(tmp) && setp.contains(tmp)) {
+        int satisfy = p1 * p0 + e1 * e0 + i1 * i0;
+        if (satisfy == 0) {
+            satisfy = minus;
+        }
+        for (int j = 0; ; j++) {
+            int tmp = satisfy - j * minus;
+            if (tmp > d && tmp - minus <= d) {
                 return tmp;
             }
         }
-        return max;
+
     }
 
 }
