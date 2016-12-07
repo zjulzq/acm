@@ -5,83 +5,53 @@ import java.util.*;
 
 public class Main {
 
+    static class Tmp {
+        String dna;
+        int inversion;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int count = 0;
+        int n = scanner.nextInt();
+        int m = scanner.nextInt();
 
-        while (scanner.hasNext()) {
-            int p = scanner.nextInt();
-            int e = scanner.nextInt();
-            int i = scanner.nextInt();
-            int d = scanner.nextInt();
-            if (p == -1 && e == -1 && i == -1 && d == -1) {
-                break;
+        Tmp[] tmps = new Tmp[m];
+
+        for (int i = 0; i < m; i++) {
+            String dna = scanner.next();
+            int inversion = calc(dna);
+            Tmp tmp = new Tmp();
+            tmp.dna = dna;
+            tmp.inversion = inversion;
+            tmps[i] = tmp;
+        }
+
+        for (int i = 0; i < tmps.length; i++) {
+            for (int j = i + 1; j < tmps.length; j++) {
+                if (tmps[i].inversion > tmps[j].inversion) {
+                    Tmp tmp = tmps[i];
+                    tmps[i] = tmps[j];
+                    tmps[j] = tmp;
+                }
             }
-            int[] input = new int[]{p, e, i, d};
-            int target = calc(input);
-            count++;
-            System.out.println(String.format("Case %d: the next triple peak occurs in %d days.", count, target - d));
+        }
+
+        for (int i = 0; i < tmps.length; i++) {
+            System.out.println(tmps[i].dna);
         }
 
     }
 
-    private static int calc(int[] input) {
-        int p = input[0];
-        int e = input[1];
-        int i = input[2];
-        int d = input[3];
-
-        if (p == e && e == i) {
-            return p + 21252;
-        }
-
-        int max = d + 21252;
-        int minus = 21252;
-
-        int p0 = p % 23;
-        int e0 = e % 28;
-        int i0 = i % 33;
-
-
-        int p1 = 0;
-        int e1 = 0;
-        int i1 = 0;
-
-        for (int j = 1; ; j++) {
-            int tmp = 23 * 28 * j;
-            if (tmp % 33 == 1) {
-                i1 = tmp;
-                break;
+    private static int calc(String dna) {
+        int inversion = 0;
+        for (int i = 0; i < dna.length(); i++) {
+            for (int j = i + 1; j < dna.length(); j++) {
+                if (dna.charAt(i) > dna.charAt(j)) {
+                    inversion++;
+                }
             }
         }
-
-        for (int j = 1; ; j++) {
-            int tmp = 23 * 33 * j;
-            if (tmp % 28 == 1) {
-                e1 = tmp;
-                break;
-            }
-        }
-
-        for (int j = 1; ; j++) {
-            int tmp = 28 * 33 * j;
-            if (tmp % 23 == 1) {
-                p1 = tmp;
-                break;
-            }
-        }
-
-        int satisfy = p1 * p0 + e1 * e0 + i1 * i0;
-        if (satisfy == 0) {
-            satisfy = minus;
-        }
-        for (int j = 0; ; j++) {
-            int tmp = satisfy - j * minus;
-            if (tmp > d && tmp - minus <= d) {
-                return tmp;
-            }
-        }
-
+        return inversion;
     }
 
 }
