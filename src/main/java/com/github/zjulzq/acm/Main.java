@@ -76,7 +76,7 @@ public class Main {
                         fillMiddleArray(second, value);
                         fillLastArray(third, value);
                         calc1stRowWith3rdRow(first, second);
-                        calcMiddleRow(first, second, second, width);
+                        calcMiddleRow(first, second, second);
                         copy(second, first);
                     } else {
                         //12223
@@ -84,7 +84,7 @@ public class Main {
                         fillMiddleArray(second, value);
                         fillLastArray(third, value);
                         calc1stRowWith3rdRow(first, second);
-                        calcMiddleRow(first, second, second, width);
+                        calcMiddleRow(first, second, second);
                         addDiff2Output();
                         int gap = newPosition.row - position.row - 3;
                         addZero2Output(gap * width);
@@ -106,7 +106,7 @@ public class Main {
                         fillMiddleArray(third, value);
                         fillLastArray(fourth, value);
                         calc1stRowWith3rdRow(first, second);
-                        calcMiddleRow(first, second, third, width);
+                        calcMiddleRow(first, second, third);
                         copy(second, first);
                         copy(third, second);
                         copy(fourth, third);
@@ -116,8 +116,8 @@ public class Main {
                         fillMiddleArray(third, value);
                         fillLastArray(fourth, value);
                         calc1stRowWith3rdRow(first, second);
-                        calcMiddleRow(first, second, third, width);
-                        calcMiddleRow(second, third, third, width);
+                        calcMiddleRow(first, second, third);
+                        calcMiddleRow(second, third, third);
                         copy(third, first);
                         copy(third, second);
                         copy(fourth, third);
@@ -127,8 +127,8 @@ public class Main {
                         fillMiddleArray(third, value);
                         fillLastArray(fourth, value);
                         calc1stRowWith3rdRow(first, second);
-                        calcMiddleRow(first, second, third, width);
-                        calcMiddleRow(second, third, third, width);
+                        calcMiddleRow(first, second, third);
+                        calcMiddleRow(second, third, third);
                         addDiff2Output();
 
                         int gap = newPosition.row - position.row - 3;
@@ -146,7 +146,7 @@ public class Main {
                         // 1234
                         fill1stArray(third, value);
                         fillLastArray(fourth, value);
-                        calcMiddleRow(first, second, third, width);
+                        calcMiddleRow(first, second, third);
                         copy(second, first);
                         copy(third, second);
                         copy(fourth, third);
@@ -155,8 +155,8 @@ public class Main {
                         fill1stArray(third, value);
                         fillMiddleArray(fourth, value);
                         fillLastArray(fifth, value);
-                        calcMiddleRow(first, second, third, width);
-                        calcMiddleRow(second, third, fourth, width);
+                        calcMiddleRow(first, second, third);
+                        calcMiddleRow(second, third, fourth);
                         copy(third, first);
                         copy(fourth, second);
                         copy(fifth, third);
@@ -165,9 +165,9 @@ public class Main {
                         fill1stArray(third, value);
                         fillMiddleArray(fourth, value);
                         fillLastArray(fifth, value);
-                        calcMiddleRow(first, second, third, width);
-                        calcMiddleRow(second, third, fourth, width);
-                        calcMiddleRow(third, fourth, fourth, width);
+                        calcMiddleRow(first, second, third);
+                        calcMiddleRow(second, third, fourth);
+                        calcMiddleRow(third, fourth, fourth);
                         copy(fourth, first);
                         copy(fourth, second);
                         copy(fifth, third);
@@ -176,9 +176,9 @@ public class Main {
                         fill1stArray(third, value);
                         fillMiddleArray(fourth, value);
                         fillLastArray(fifth, value);
-                        calcMiddleRow(first, second, third, width);
-                        calcMiddleRow(second, third, fourth, width);
-                        calcMiddleRow(third, fourth, fourth, width);
+                        calcMiddleRow(first, second, third);
+                        calcMiddleRow(second, third, fourth);
+                        calcMiddleRow(third, fourth, fourth);
                         addDiff2Output();
                         int gap = newPosition.row - position.row - 3;
                         addZero2Output(gap * width);
@@ -316,8 +316,8 @@ public class Main {
         }
     }
 
-    private static void calcMiddleRow(int[] first, int[] second, int[] third, int range) {
-        for (int i = 0; i < range; i++) {
+    private static void calcMiddleRow(int[] first, int[] second, int[] third) {
+        for (int i = 0; i < first.length; i++) {
             if (i == 0) {
                 diff.add(maxAbs(second[i] - first[i], second[i] - first[i + 1], second[i] - second[i + 1], second[i] - third[i], second[i] - third[i + 1]));
             } else if (i == first.length - 1) {
