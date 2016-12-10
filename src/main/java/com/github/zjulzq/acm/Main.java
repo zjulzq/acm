@@ -35,6 +35,9 @@ public class Main {
                 break;
             }
             int width = Integer.valueOf(line);
+            if (width <= 0) {
+                continue;
+            }
             int[] first = new int[width];
             int[] second = new int[width];
             int[] third = new int[width];
@@ -51,6 +54,9 @@ public class Main {
                 String[] split = line.split(" ");
                 int value = Integer.valueOf(split[0]);
                 int length = Integer.valueOf(split[1]);
+                if (length <= 0) {
+                    continue;
+                }
                 int newCount = position.count + length;
                 int newRow = newCount / width;
                 int newColumn = newCount % width;
